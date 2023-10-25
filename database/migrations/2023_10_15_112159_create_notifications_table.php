@@ -21,8 +21,6 @@ return new class extends Migration
 
             //FOREIGN KEY(S) DEFINITION
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->index('id');
         });
     }
 

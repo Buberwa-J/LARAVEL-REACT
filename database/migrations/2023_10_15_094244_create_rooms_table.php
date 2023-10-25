@@ -16,9 +16,6 @@ return new class extends Migration
             $table->timestamps();
             $table->string('room_name');
             $table->enum('room_type', ['private', 'public']);
-
-            //INDEXES
-            $table->index('id');
         });
     }
 

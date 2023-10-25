@@ -14,4 +14,9 @@ class MessageAdditionals extends Model
         'read_at',
         'message_id'
     ];
+
+    public function mainMessage()
+    {
+        return $this->belongsTo(Messages::class);
+    }
 }

@@ -12,4 +12,14 @@ class Room extends Model
         'room_name',
         'room_type',
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Messages::class);
+    }
 }

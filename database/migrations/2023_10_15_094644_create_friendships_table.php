@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('user_one')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('user_two')->references('id')->on('users')->onDelete('cascade');
 
-            $table->index('id');
+            $table->index(['user_one', 'user_two']);
             $table->index('status');
         });
     }

@@ -14,4 +14,15 @@ class Messages extends Model
         'sender_id',
         'room_id',
     ];
+
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

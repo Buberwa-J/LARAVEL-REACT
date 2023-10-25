@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
 
             // INDEXES
-            $table->index('id');
             $table->index('read_at');
             $table->index('sent_at');
         });
