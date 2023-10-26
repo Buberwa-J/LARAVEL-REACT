@@ -3,14 +3,23 @@ import { Inertia } from '@inertiajs/inertia';
 import { Head, Link } from "@inertiajs/react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
-export default function SendMessage() {
+export default function SendMessage({onNewMessage, roomId, userId}) {
     const [formData, setFormData] = useState({
         'content': '',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Inertia.post(route('message.store'), formData);  // Use Laravel's route helper
+        if (formData.content.trim() === "") {
+            return;
+        }
+        Inertia.post(route('room.sendMessage', roomId), formData);
+
+        onNewMessage({
+            content: formData.content,
+            sender_id: userId
+        });
+        setFormData({ content: '' });
     }
 
     return (

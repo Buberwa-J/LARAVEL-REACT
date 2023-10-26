@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function rooms()
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsToMany(Room::class, 'user_relations');
     }
 
     public function messages()

@@ -12,7 +12,7 @@ export default function AllRooms({ myPrivateRooms, myPublicRooms }) {
                     { myPrivateRooms ?
                         (myPrivateRooms.map((room, index) =>(
                             <Link href={route('room.instance', room.id)} key={index} className="m-2 p-2">
-                                <span  className="text-orange-500 text-2xl">Room ID:</span> <span className="text-black text-2xl">{room.id}</span>
+                            <p>  <span  className="text-orange-500 text-2xl">Room NAME:</span> <span className="text-black text-2xl">{room.room_name}</span></p>
                             </Link>
                        ))):(<h1> You Dont have any chats yet</h1>)
                     }

@@ -82,6 +82,6 @@ Route::middleware('auth')->group(function () {
         ->name('messages.create');
 
     //STORE A RESOURCE
-    Route::post('store/messages', [MessagesController::class, 'store'])
-        ->name('message.store');
+    Route::post('room/{room}/message', [RoomController::class, 'sendMessage'])
+        ->name('room.sendMessage');
 });

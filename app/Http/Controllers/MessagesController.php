@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Messages;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -16,8 +17,9 @@ class MessagesController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $myMessages = Messages::where('sender_id', $user->id)->get();
-
+        $myMessages = Messages::where('sender_id', $user->id)
+            ->orderBy('created_at', 'asc')
+            ->get();
         return Inertia::render('Messages/Outgoing', compact('myMessages'));
     }
 
@@ -36,16 +38,6 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'content' => 'required|max:255',
-        ]);
-
-        $newMessage = Messages::create([
-            'content' => $request->content,
-            'sender_id' => Auth::user()->id,
-            'room_id' => 27
-        ]);
-        return Inertia::location(route('messages.show'));
     }
 
     /**

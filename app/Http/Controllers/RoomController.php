@@ -25,10 +25,13 @@ class RoomController extends Controller
         if ($myRelations) {
             foreach ($myRelations as $relation) {
                 $room = Room::where('id', $relation->room_id)
+                    ->with('users')
                     ->first();
-                if ($room->room_type === 'private')
+                if ($room->room_type === 'private') {
+                    $otherUser = $room->users->firstWhere('id', '!=', $user->id);
+                    $room->room_name = $otherUser->name;
                     $myPrivateRooms->push($room);
-                else
+                } else
                     $myPublicRooms->push($room);
             }
         }
@@ -41,6 +44,23 @@ class RoomController extends Controller
     public function create()
     {
         //
+    }
+
+
+    // Send a message
+    public function sendMessage(Request $request, Room $room)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+
+        $newMessage = Messages::create([
+            'content' => $request->content,
+            'sender_id' => $user->id,
+            'room_id' => $room->id
+        ]);
     }
 
     /**
@@ -58,8 +78,10 @@ class RoomController extends Controller
     {
         $user = Auth::user();
         $messages = Messages::where('room_id', $room->id)
+            ->orderBy('created_at', 'asc')
             ->get();
-        return Inertia::render('Messages/ChatWindow', compact('messages', 'user'));
+        $roomId = $room->id;
+        return Inertia::render('Messages/ChatWindow', compact('messages', 'user', 'roomId'));
     }
 
     /**
