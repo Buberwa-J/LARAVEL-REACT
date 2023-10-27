@@ -29,7 +29,11 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'path' => env('PUSHER_APP_PATH'),
             'capacity' => null,
+<<<<<<< HEAD
             'enable_client_messages' => true,
+=======
+            'enable_client_messages' => false,
+>>>>>>> 11b0ffa43af542e08a2bbac40d8d60fadbeeaace
             'enable_statistics' => true,
         ],
     ],
